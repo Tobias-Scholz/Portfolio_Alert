@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         RetrieveQuotes().execute(MessageFormat.format(LATEST_URL,
             URLEncoder.encode("msf.de", StandardCharsets.UTF_8.name())))
+
     }
 
 
