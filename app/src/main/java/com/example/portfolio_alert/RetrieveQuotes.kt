@@ -4,6 +4,9 @@ import android.net.wifi.WifiConfiguration.AuthAlgorithm.strings
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log.d
+import org.json.JSONArray
+import org.json.JSONObject
+import java.lang.reflect.Executable
 
 import java.net.HttpURLConnection
 import java.net.URL
@@ -19,21 +22,33 @@ internal class RetrieveQuotes : AsyncTask<String, Void, Void>() {
     }
 
     fun sendGet(url_param : String) {
-        val url = URL(url_param)
+        try {
+            val url = URL(url_param)
 
-        with(url.openConnection() as HttpURLConnection) {
-            requestMethod = "GET"  // optional default is GET
+            with(url.openConnection() as HttpURLConnection) {
+                requestMethod = "GET"  // optional default is GET
 
-            d("Tobias","\nSent 'GET' request to URL : $url; Response Code : $responseCode")
+                d("Tobias","\nSent 'GET' request to URL : $url; Response Code : $responseCode")
 
-            inputStream.bufferedReader().use {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    it.lines().forEach { line ->
-                        d("Tobias", line)
+                var response : String = ""
+
+                inputStream.bufferedReader().use {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        it.lines().forEach { line ->
+                            response += line
+                        }
                     }
                 }
+
+                val jsonObject = JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1))
+                val bid = jsonObject.getJSONObject("quoteResponse").getJSONArray("result").getJSONObject(0).getString("bid").toString()
+                d("Tobias", bid)
             }
+        } catch (e : Exception)
+        {
+            d("Tobias", e.toString())
         }
+
     }
 
     override fun onPostExecute(result: Void?) {
