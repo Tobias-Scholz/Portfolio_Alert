@@ -4,19 +4,22 @@ import android.net.wifi.WifiConfiguration.AuthAlgorithm.strings
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log.d
+import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.ref.WeakReference
 import java.lang.reflect.Executable
 
 import java.net.HttpURLConnection
 import java.net.URL
 
 
-internal class RetrieveQuotes : AsyncTask<String, Void, Void>() {
+internal class RetrieveQuotes(var activity: WeakReference<MainActivity>) : AsyncTask<String, Void, Void>() {
 
     private var exception: Exception? = null
 
     override fun doInBackground(vararg urls: String): Void? {
+        d("Tobias", "1")
         sendGet(urls[0])
         return null
     }
@@ -52,6 +55,6 @@ internal class RetrieveQuotes : AsyncTask<String, Void, Void>() {
     }
 
     override fun onPostExecute(result: Void?) {
-
+        activity.get()?.button?.setText("Peter")
     }
 }
