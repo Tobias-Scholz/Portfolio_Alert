@@ -17,8 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     val LATEST_URL = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}"
     val button: Button by bindView(R.id.button1)
+    val stock_list : ArrayList<Stock> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        stock_list.add(Stock("Microsoft", "msf.de"))
+        stock_list.add(Stock("SAP", "sap.de"))
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
