@@ -20,10 +20,11 @@ class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : Re
         return stock_list.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StockAdapter.ViewHolder, position: Int) {
+        holder.stock_name.text = stock_list[position].name
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val text: TextView = itemView.findViewById(R.id.stock_name)
+        val stock_name: TextView = itemView.findViewById(R.id.stock_name)
     }
 }

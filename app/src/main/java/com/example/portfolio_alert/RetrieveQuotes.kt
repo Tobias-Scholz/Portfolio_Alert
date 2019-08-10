@@ -55,6 +55,6 @@ internal class RetrieveQuotes(var activity: WeakReference<MainActivity>) : Async
     }
 
     override fun onPostExecute(result: Void?) {
-        activity.get()?.button?.setText("Peter")
+
     }
 }

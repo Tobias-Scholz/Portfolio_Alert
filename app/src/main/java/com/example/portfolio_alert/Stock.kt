@@ -1,4 +1,4 @@
 package com.example.portfolio_alert
 
-class Stock (name: String, symbol: String) {
+class Stock (val name: String, val symbol: String) {
 }
