@@ -48,17 +48,25 @@
     <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:columnCount="2"
+            android:columnCount="3"
             android:rowCount="2"
             android:layout_gravity="center"
             android:layout_marginTop="5dp">
         <TextView
+                android:text="Stück"
+                android:textColor="#3D3D3D"
+                android:layout_marginEnd="60sp"/>
+        <TextView
                 android:text="Kurs"
                 android:textColor="#3D3D3D"
-                android:layout_marginEnd="70sp"/>
+                android:layout_marginEnd="60sp"/>
         <TextView
                 android:text="Diff%"
                 android:textColor="#3D3D3D"/>
+        <TextView
+                tools:text="0.3232"
+                android:id="@+id/nominal_text"
+                android:textColor="#1D1D1D"/>
         <TextView
                 tools:text="234.4€"
                 android:id="@+id/quote_text"

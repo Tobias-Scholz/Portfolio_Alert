@@ -24,21 +24,23 @@ class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : Re
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val temp_symbol = "(${stock_list[position].symbol})"
+        val stock = stock_list[position]
+        val temp_symbol = "(${stock.symbol})"
         holder.stock_symbol.text = temp_symbol;
-        holder.stock_name.text = stock_list[position].name
-        holder.stock_quote.text = context.resources.getString(R.string.quote, stock_list[position].quote)
-        holder.stock_diff_perc.text = context.resources.getString(R.string.diff_perc, stock_list[position].diff)
-        if (stock_list[position].diff > 0){
+        holder.stock_name.text = stock.name
+        holder.stock_quote.text = context.resources.getString(R.string.quote, stock.quote)
+        holder.stock_diff_perc.text = context.resources.getString(R.string.diff_perc, stock.diff)
+        if (stock.diff > 0){
             holder.layout.setBackgroundResource(R.drawable.item_background_green)
             holder.stock_diff_perc.setTextColor(ContextCompat.getColor(context, R.color.positive))
-        }else if (stock_list[position].diff < 0){
+        }else if (stock.diff < 0){
             holder.layout.setBackgroundResource(R.drawable.item_background_red)
             holder.stock_diff_perc.setTextColor(ContextCompat.getColor(context, R.color.negative))
         }else{
             holder.layout.setBackgroundResource(R.drawable.item_background_grey)
             holder.stock_diff_perc.setTextColor(Color.BLACK)
         }
+        holder.stock_nominal.text = stock.nominal.toString()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -46,6 +48,7 @@ class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : Re
         val stock_symbol: TextView = itemView.findViewById(R.id.stock_symbol)
         val stock_quote: TextView = itemView.findViewById(R.id.quote_text)
         val stock_diff_perc: TextView = itemView.findViewById(R.id.diff_perc_text)
+        val stock_nominal: TextView = itemView.findViewById(R.id.nominal_text)
         val layout: LinearLayout = itemView.findViewById(R.id.stock_list_layout)
     }
 }
