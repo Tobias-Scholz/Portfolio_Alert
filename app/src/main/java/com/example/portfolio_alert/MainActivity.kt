@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        stock_list.add(Stock("Microsoft", "msf.de"))
-        stock_list.add(Stock("SAP", "sap.de"))
+        stock_list.add(Stock("Microsoft", "msf.de", 120.3, 2.3))
+        stock_list.add(Stock("SAP", "sap.de", 103.4, -2.3))
+        stock_list.add(Stock("AT&T", "soba.de", 25.4, 0.0))
 
         setContentView(R.layout.activity_main)
 

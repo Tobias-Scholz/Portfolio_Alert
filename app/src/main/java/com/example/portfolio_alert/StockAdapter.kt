@@ -1,11 +1,14 @@
 package com.example.portfolio_alert
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.w3c.dom.Text
@@ -21,10 +24,26 @@ class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : Re
     }
 
     override fun onBindViewHolder(holder: StockAdapter.ViewHolder, position: Int) {
-        holder.stock_name.text = stock_list[position].name
+        val temp_name = "${stock_list[position].name} (${stock_list[position].symbol})"
+        holder.stock_name.text = temp_name
+        holder.stock_quote.text = stock_list[position].quote.toString()
+        holder.stock_diff_perc.text = stock_list[position].diff.toString()
+        if (stock_list[position].diff > 0){
+            holder.layout.setBackgroundResource(R.drawable.item_background_green)
+            holder.stock_diff_perc.setTextColor(ContextCompat.getColor(context, R.color.positive))
+        }else if (stock_list[position].diff < 0){
+            holder.layout.setBackgroundResource(R.drawable.item_background_red)
+            holder.stock_diff_perc.setTextColor(ContextCompat.getColor(context, R.color.negative))
+        }else{
+            holder.layout.setBackgroundResource(R.drawable.item_background_grey)
+            holder.stock_diff_perc.setTextColor(Color.BLACK)
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val stock_name: TextView = itemView.findViewById(R.id.stock_name)
+        val stock_quote: TextView = itemView.findViewById(R.id.quote_text)
+        val stock_diff_perc: TextView = itemView.findViewById(R.id.diff_perc_text)
+        val layout: LinearLayout = itemView.findViewById(R.id.stock_list_layout)
     }
 }
