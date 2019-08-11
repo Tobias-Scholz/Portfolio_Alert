@@ -23,11 +23,12 @@ class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : Re
         return stock_list.size
     }
 
-    override fun onBindViewHolder(holder: StockAdapter.ViewHolder, position: Int) {
-        val temp_name = "${stock_list[position].name} (${stock_list[position].symbol})"
-        holder.stock_name.text = temp_name
-        holder.stock_quote.text = stock_list[position].quote.toString()
-        holder.stock_diff_perc.text = stock_list[position].diff.toString()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val temp_symbol = "(${stock_list[position].symbol})"
+        holder.stock_symbol.text = temp_symbol;
+        holder.stock_name.text = stock_list[position].name
+        holder.stock_quote.text = context.resources.getString(R.string.quote, stock_list[position].quote)
+        holder.stock_diff_perc.text = context.resources.getString(R.string.diff_perc, stock_list[position].diff)
         if (stock_list[position].diff > 0){
             holder.layout.setBackgroundResource(R.drawable.item_background_green)
             holder.stock_diff_perc.setTextColor(ContextCompat.getColor(context, R.color.positive))
@@ -42,6 +43,7 @@ class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : Re
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val stock_name: TextView = itemView.findViewById(R.id.stock_name)
+        val stock_symbol: TextView = itemView.findViewById(R.id.stock_symbol)
         val stock_quote: TextView = itemView.findViewById(R.id.quote_text)
         val stock_diff_perc: TextView = itemView.findViewById(R.id.diff_perc_text)
         val layout: LinearLayout = itemView.findViewById(R.id.stock_list_layout)

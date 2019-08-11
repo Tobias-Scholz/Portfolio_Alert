@@ -13,6 +13,8 @@ import java.lang.ref.WeakReference
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.text.MessageFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         stock_list.add(Stock("Microsoft", "msf.de", 120.3, 2.3))
         stock_list.add(Stock("SAP", "sap.de", 103.4, -2.3))
         stock_list.add(Stock("AT&T", "soba.de", 25.4, 0.0))
+        
+        stock_list.sortByDescending { it.diff }
 
         setContentView(R.layout.activity_main)
 

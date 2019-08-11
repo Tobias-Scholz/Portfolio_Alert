@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Portfolio_Alert</string>
+    <string name="diff_perc">%+.2f%%</string>
+    <string name="quote">%.2f€</string>
 </resources>
