@@ -17,7 +17,6 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    val LATEST_URL = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}"
     val stock_list : ArrayList<Stock> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,27 +24,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        stock_list.add(Stock("Microsoft", "msf.de", 120.3, 2.3, 24.0))
-        stock_list.add(Stock("SAP", "sap.de", 103.4, -2.3, 6.0))
-        stock_list.add(Stock("AT&T", "soba.de", 25.4, 0.0, 24.0))
-        stock_list.add(Stock("McDonalds", "mdo.de", 195.4, 1.0, 2.34224))
-        stock_list.add(Stock("PepsiCo", "mdo.de", 114.4, 0.3, 0.344))
-        stock_list.add(Stock("Wirecard", "wdi.de", 144.5, -0.3, 2.3323))
-        stock_list.add(Stock("Amazon", "amz.de", 1611.5, 0.7, 0.0234))
+        stock_list.add(Stock("Microsoft", "msf.de", 0.0, 2.3, 24.0))
+        stock_list.add(Stock("SAP", "sap.de", 0.0, -2.3, 6.0))
+        stock_list.add(Stock("AT&T", "soba.de", 0.0, 0.0, 24.0))
+        stock_list.add(Stock("McDonalds", "mdo.de", 0.0, 1.0, 2.34224))
+        stock_list.add(Stock("PepsiCo", "mdo.de", 0.0, 0.3, 0.344))
+        stock_list.add(Stock("Wirecard", "wdi.de", 0.0, -0.3, 2.3323))
+        stock_list.add(Stock("Amazon", "amz.de", 0.0, 0.7, 0.0234))
         
         stock_list.sortByDescending { it.diff }
 
-        RetrieveQuotes(WeakReference(this)).execute(MessageFormat.format(LATEST_URL,
-            URLEncoder.encode("msf.de", StandardCharsets.UTF_8.name())))
-        d("Tobias", "2")
-
         rv_stock_list.layoutManager = LinearLayoutManager(this)
         rv_stock_list.adapter = StockAdapter(stock_list, this)
+
+        RetrieveQuotes(WeakReference(this), "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}").execute(*(stock_list.toTypedArray()))
     }
 
     fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> {
         return lazy {
             findViewById<ViewT>(idRes)
         }
+    }
+
+    fun refresh_rv(){
+        rv_stock_list.adapter!!.notifyDataSetChanged()
     }
 }
