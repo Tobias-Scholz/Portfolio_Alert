@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun refresh_rv(){
+        stock_list.sortByDescending { it.diff }
         rv_stock_list.adapter!!.notifyDataSetChanged()
     }
 }

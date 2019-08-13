@@ -8,7 +8,7 @@
               android:padding="7dp"
               android:paddingTop="0dp"
               android:background="@drawable/item_background_red"
-              android:elevation="5dp"
+              android:elevation="3dp"
               android:id="@+id/stock_list_layout">
 
     <LinearLayout

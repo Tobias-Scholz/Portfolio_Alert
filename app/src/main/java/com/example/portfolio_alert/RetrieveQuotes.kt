@@ -50,8 +50,10 @@ internal class RetrieveQuotes(var activity: WeakReference<MainActivity>, var url
 
                 val jsonObject = JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1))
                 val bid = jsonObject.getJSONObject("quoteResponse").getJSONArray("result").getJSONObject(0).getString("bid").toString()
+                val diff = jsonObject.getJSONObject("quoteResponse").getJSONArray("result").getJSONObject(0).getString("regularMarketChangePercent").toString()
                 stock.quote = bid.toDouble()
-                d("Tobias", "${stock.symbol} : $bid")
+                stock.diff = diff.toDouble()
+                d("Tobias", "${stock.symbol} : ${stock.diff} : $bid")
             }
         } catch (e : Exception)
         {
