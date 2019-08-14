@@ -22,7 +22,6 @@ internal class RetrieveQuotes(var activity: WeakReference<MainActivity>, var url
     private var exception: Exception? = null
 
     override fun doInBackground(vararg symbols: Stock): Void? {
-        d("Tobias", "1")
         symbols.forEach {
             sendGet(it, url)
         }

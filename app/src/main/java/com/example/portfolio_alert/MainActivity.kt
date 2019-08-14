@@ -3,8 +3,6 @@ package com.example.portfolio_alert
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log.d
-import android.view.Menu
-import android.view.View
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +12,10 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.text.MessageFormat
 import kotlin.collections.ArrayList
-
+import android.widget.PopupWindow
+import android.widget.LinearLayout
+import android.content.Context
+import android.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,5 +56,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.add_button -> {
+                create_stock_form()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun create_stock_form()
+    {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.new_stock_form, null)
+
+        // create the popup window
+        val width = LinearLayout.LayoutParams.WRAP_CONTENT
+        val height = LinearLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true // lets taps outside the popup also dismiss it
+        val popupWindow = PopupWindow(popupView, width, height, focusable)
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(findViewById(R.id.add_button), Gravity.CENTER, 0, 0)
     }
 }
