@@ -3,6 +3,7 @@ package com.example.portfolio_alert
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log.d
+import android.view.Menu
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
@@ -24,13 +25,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        stock_list.add(Stock("Microsoft", "msf.de", 0.0, 2.3, 24.0))
-        stock_list.add(Stock("SAP", "sap.de", 0.0, -2.3, 6.0))
-        stock_list.add(Stock("AT&T", "soba.de", 0.0, 0.0, 24.0))
-        stock_list.add(Stock("McDonalds", "mdo.de", 0.0, 1.0, 2.34224))
-        stock_list.add(Stock("PepsiCo", "mdo.de", 0.0, 0.3, 0.344))
-        stock_list.add(Stock("Wirecard", "wdi.de", 0.0, -0.3, 2.3323))
-        stock_list.add(Stock("Amazon", "amz.de", 0.0, 0.7, 0.0234))
+        stock_list.add(Stock("Microsoft", "msf.de", 24.0))
+        stock_list.add(Stock("SAP", "sap.de", 6.0))
+        stock_list.add(Stock("AT&T", "soba.de", 24.0))
+        stock_list.add(Stock("McDonalds", "mdo.de", 2.34224))
+        stock_list.add(Stock("PepsiCo", "mdo.de", 0.344))
+        stock_list.add(Stock("Wirecard", "wdi.de", 2.3323))
+        stock_list.add(Stock("Amazon", "amz.de", 0.0234))
         
         stock_list.sortByDescending { it.diff }
 
@@ -49,5 +50,10 @@ class MainActivity : AppCompatActivity() {
     fun refresh_rv(){
         stock_list.sortByDescending { it.diff }
         rv_stock_list.adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 }

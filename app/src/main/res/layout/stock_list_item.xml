@@ -4,8 +4,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:padding="7dp"
+              android:layout_marginBottom="10dp"
+              android:padding="5dp"
               android:paddingTop="0dp"
               android:background="@drawable/item_background_red"
               android:elevation="3dp"
@@ -19,7 +19,7 @@
         <TextView
                 tools:text="Name"
                 android:id="@+id/stock_name"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:visibility="visible"
@@ -28,13 +28,13 @@
         <TextView
                 tools:text="(Symbol)"
                 android:id="@+id/stock_symbol"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:visibility="visible"
                 android:textAlignment="center"
-                android:textColor="#575757"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginStart="5dp"
+                android:textColor="#575757"/>
     </LinearLayout>
 
 
@@ -42,7 +42,7 @@
             android:layout_height="1dp"
             android:layout_width="match_parent"
             android:background="#CECECE"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="3dp"/>
 
 
     <GridLayout
@@ -51,7 +51,7 @@
             android:columnCount="3"
             android:rowCount="2"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="3dp">
         <TextView
                 android:text="Stück"
                 android:textColor="#3D3D3D"
