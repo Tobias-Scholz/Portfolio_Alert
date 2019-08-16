@@ -61,26 +61,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.add_button -> {
-                create_stock_form()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    fun create_stock_form()
-    {
-        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView = inflater.inflate(R.layout.new_stock_form, null)
-
-        // create the popup window
-        val width = LinearLayout.LayoutParams.WRAP_CONTENT
-        val height = LinearLayout.LayoutParams.WRAP_CONTENT
-        val focusable = true // lets taps outside the popup also dismiss it
-        val popupWindow = PopupWindow(popupView, width, height, focusable)
-
-        // show the popup window
-        // which view you pass in doesn't matter, it is only used for the window tolken
-        popupWindow.showAtLocation(findViewById(R.id.add_button), Gravity.CENTER, 0, 0)
     }
 }
