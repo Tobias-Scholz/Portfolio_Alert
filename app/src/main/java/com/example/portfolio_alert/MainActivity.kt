@@ -16,6 +16,8 @@ import android.widget.PopupWindow
 import android.widget.LinearLayout
 import android.content.Context
 import android.view.*
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         rv_stock_list.layoutManager = LinearLayoutManager(this)
         rv_stock_list.adapter = StockAdapter(stock_list, this)
 
-        RetrieveQuotes(WeakReference(this), "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}").execute(*(stock_list.toTypedArray()))
+        getQuotes(stock_list)
     }
 
     fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> {
@@ -58,13 +60,25 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    fun getQuotes(stock_list: ArrayList<Stock>)
+    {
+        RetrieveQuotes(WeakReference(this), "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}").execute(*(stock_list.toTypedArray()))
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.add_button -> {
-
+                d("Tobias", "?????")
+                val dialog = FireMissilesDialogFragment(this)
+                dialog.show(supportFragmentManager, "????")
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun createNewStock(name: String, symbol: String, nominal: Double) {
+        stock_list.add(Stock(name, symbol, nominal))
+        getQuotes(stock_list)
     }
 }
