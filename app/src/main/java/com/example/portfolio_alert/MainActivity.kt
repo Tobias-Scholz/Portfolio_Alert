@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MainActivity : AppCompatActivity() {
 
     val stock_list : ArrayList<Stock> = ArrayList()
+    val url : String = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getQuotes(stock_list: ArrayList<Stock>)
     {
-        RetrieveQuotes(WeakReference(this), "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}").execute(*(stock_list.toTypedArray()))
+        RetrieveQuotes(WeakReference(this), url).execute(*(stock_list.toTypedArray()))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
