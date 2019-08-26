@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
+        readFromFile(applicationContext, "test.txt")
+
         stock_list.add(Stock("Microsoft", "msf.de", 24.0))
         stock_list.add(Stock("SAP", "sap.de", 6.0))
         stock_list.add(Stock("AT&T", "soba.de", 24.0))
