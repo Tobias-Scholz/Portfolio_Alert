@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
-    val stock_list : ArrayList<Stock> = ArrayList()
+    val stockManager : StockManager = StockManager()
     val url : String = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,22 +29,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        readFromFile(applicationContext, "test.txt")
+        //readFromFile(applicationContext, "storage.txt")
 
-        stock_list.add(Stock("Microsoft", "msf.de", 24.0))
-        stock_list.add(Stock("SAP", "sap.de", 6.0))
-        stock_list.add(Stock("AT&T", "soba.de", 24.0))
-        stock_list.add(Stock("McDonalds", "mdo.de", 2.34224))
-        stock_list.add(Stock("PepsiCo", "mdo.de", 0.344))
-        stock_list.add(Stock("Wirecard", "wdi.de", 2.3323))
-        stock_list.add(Stock("Amazon", "amz.de", 0.0234))
-        
-        stock_list.sortByDescending { it.diff }
+        stockManager.stocks.add(Stock("Microsoft", "msf.de", 24.0))
+        stockManager.stocks.add(Stock("SAP", "sap.de", 6.0))
+        stockManager.stocks.add(Stock("AT&T", "soba.de", 24.0))
+        stockManager.stocks.add(Stock("McDonalds", "mdo.de", 2.34224))
+        stockManager.stocks.add(Stock("PepsiCo", "mdo.de", 0.344))
+        stockManager.stocks.add(Stock("Wirecard", "wdi.de", 2.3323))
+        stockManager.stocks.add(Stock("Amazon", "amz.de", 0.0234))
+
+        stockManager.stocks.sortByDescending { it.diff }
+
+        writeToFile(applicationContext, "storage.txt", stockManager.getStockJson().toString())
 
         rv_stock_list.layoutManager = LinearLayoutManager(this)
-        rv_stock_list.adapter = StockAdapter(stock_list, this)
+        rv_stock_list.adapter = StockAdapter(stockManager.stocks, this)
 
-        getQuotes(stock_list)
+        getQuotes(stockManager.stocks)
     }
 
     fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> {
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun refresh_rv(){
-        stock_list.sortByDescending { it.diff }
+        stockManager.stocks.sortByDescending { it.diff }
         rv_stock_list.adapter!!.notifyDataSetChanged()
     }
 
@@ -81,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun createNewStock(name: String, symbol: String, nominal: Double) {
-        stock_list.add(Stock(name, symbol, nominal))
-        getQuotes(stock_list)
+        stockManager.stocks.add(Stock(name, symbol, nominal))
+        getQuotes(stockManager.stocks)
     }
 }
