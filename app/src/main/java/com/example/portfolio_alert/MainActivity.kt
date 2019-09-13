@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         stockManager.stocks.sortByDescending { it.diff }
 
-        writeToFile(applicationContext, "storage.txt", stockManager.getStockJson().toString())
+        writeToFile(applicationContext, "storage.txt", "?!?!?!?!")
 
         rv_stock_list.layoutManager = LinearLayoutManager(this)
         rv_stock_list.adapter = StockAdapter(stockManager.stocks, this)
