@@ -18,6 +18,7 @@ import android.content.Context
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,15 +30,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        //readFromFile(applicationContext, "storage.txt")
-
-        stockManager.stocks.add(Stock("Microsoft", "msf.de", 24.0))
+       /* stockManager.stocks.add(Stock("Microsoft", "msf.de", 24.0))
         stockManager.stocks.add(Stock("SAP", "sap.de", 6.0))
         stockManager.stocks.add(Stock("AT&T", "soba.de", 24.0))
         stockManager.stocks.add(Stock("McDonalds", "mdo.de", 2.34224))
         stockManager.stocks.add(Stock("PepsiCo", "mdo.de", 0.344))
         stockManager.stocks.add(Stock("Wirecard", "wdi.de", 2.3323))
-        stockManager.stocks.add(Stock("Amazon", "amz.de", 0.0234))
+        stockManager.stocks.add(Stock("Amazon", "amz.de", 0.0234))*/
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database"
+        ).build()
+        db.stockDao().insertAll(Stock("Microsoft", "msf.de", 24.0))
 
         stockManager.stocks.sortByDescending { it.diff }
 

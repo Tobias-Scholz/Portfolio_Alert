@@ -1,12 +1,14 @@
 package com.example.portfolio_alert
 
-import org.json.JSONObject
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class Stock (var name: String, var symbol: String, var quote : Double = 0.0, var diff : Double = 0.0, var nominal : Double = 0.0) {
-    constructor(name: String, symbol: String, nominal: Double) : this(name, symbol, 0.0, 0.0, nominal)
-
-    fun toJsonString(): JSONObject{
-        val string = "{name: $name,\n symbol: $symbol,\n quote: $quote,\n diff: $diff,\n nominal: $nominal}"
-        return JSONObject(string)
-    }
-}
+@Entity
+data class Stock(
+    @PrimaryKey @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "symbol") var symbol: String,
+    @ColumnInfo(name = "symbol") var nominal: Double,
+    var quote: Double = 0.0,
+    var diff: Double = 0.0
+)

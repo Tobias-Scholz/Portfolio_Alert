@@ -23,7 +23,7 @@ class FireMissilesDialogFragment(private val mainActivity: MainActivity) : Dialo
                     view.findViewById<EditText>(R.id.stock_name_textfield).text.toString(),
                     view.findViewById<EditText>(R.id.stock_symbol_textfield).text.toString(),
                     view.findViewById<EditText>(R.id.stock_nominal_textfield).text.toString().toDouble()) }
-                .setNegativeButton("Cancel") { _, _ -> dialog.cancel() }
+                .setNegativeButton("Cancel") { _, _ -> dialog?.cancel() }
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
