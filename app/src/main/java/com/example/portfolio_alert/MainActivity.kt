@@ -15,6 +15,7 @@ import kotlin.collections.ArrayList
 import android.widget.PopupWindow
 import android.widget.LinearLayout
 import android.content.Context
+import android.os.AsyncTask
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     val stockManager : StockManager = StockManager()
     val url : String = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols={0}"
+    var stocks : List<Stock>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +43,20 @@ class MainActivity : AppCompatActivity() {
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database"
-        ).build()
-        db.stockDao().insertAll(Stock("Microsoft", "msf.de", 24.0))
+        ).fallbackToDestructiveMigration().build()
 
-        stockManager.stocks.sortByDescending { it.diff }
+        AsyncTask.execute {
+            stocks = db.stockDao().getAll()
 
-        writeToFile(applicationContext, "storage.txt", "?!?!?!?!")
+            stocks?.sortedByDescending { it.diff }
 
-        rv_stock_list.layoutManager = LinearLayoutManager(this)
-        rv_stock_list.adapter = StockAdapter(stockManager.stocks, this)
+            runOnUiThread {
+                rv_stock_list.layoutManager = LinearLayoutManager(this)
+                rv_stock_list.adapter = StockAdapter(stocks!!, this)
+            }
 
-        getQuotes(stockManager.stocks)
+            getQuotes(stocks!!)
+        }
     }
 
     fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> {
@@ -61,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun refresh_rv(){
-        stockManager.stocks.sortByDescending { it.diff }
+        stocks?.sortedByDescending { it.diff }
         rv_stock_list.adapter!!.notifyDataSetChanged()
     }
 
@@ -70,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun getQuotes(stock_list: ArrayList<Stock>)
+    fun getQuotes(stock_list: List<Stock>)
     {
         RetrieveQuotes(WeakReference(this), url).execute(*(stock_list.toTypedArray()))
     }
@@ -88,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun createNewStock(name: String, symbol: String, nominal: Double) {
-        stockManager.stocks.add(Stock(name, symbol, nominal))
+        stockManager.stocks.add(Stock(null, name, symbol, nominal))
         getQuotes(stockManager.stocks)
     }
 }

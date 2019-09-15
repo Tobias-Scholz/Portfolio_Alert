@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.w3c.dom.Text
 
-class StockAdapter(val stock_list: ArrayList<Stock>, val context : Context) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
+class StockAdapter(val stock_list: List<Stock>, val context : Context) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.stock_list_item, parent, false))

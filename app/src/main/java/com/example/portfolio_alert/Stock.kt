@@ -6,9 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Stock(
-    @PrimaryKey @ColumnInfo(name = "name") var name: String,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Long?,
+    @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "symbol") var symbol: String,
-    @ColumnInfo(name = "symbol") var nominal: Double,
+    @ColumnInfo(name = "nominal") var nominal: Double,
     var quote: Double = 0.0,
     var diff: Double = 0.0
 )
