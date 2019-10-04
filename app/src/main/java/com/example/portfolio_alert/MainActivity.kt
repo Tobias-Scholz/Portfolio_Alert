@@ -59,12 +59,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> {
-        return lazy {
-            findViewById<ViewT>(idRes)
-        }
-    }
-
     fun refresh_rv(){
         stocks?.sortedByDescending { it.diff }
         rv_stock_list.adapter!!.notifyDataSetChanged()
@@ -84,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.add_button -> {
                 d("Tobias", "?????")
-                val dialog = FireMissilesDialogFragment(this)
+                val dialog = CreateNewStockDialogFragment(this)
                 dialog.show(supportFragmentManager, "????")
                 true
             }

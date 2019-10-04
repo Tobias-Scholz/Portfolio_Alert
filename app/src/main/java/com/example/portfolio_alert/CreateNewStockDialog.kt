@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.new_stock_form.*
 
-class FireMissilesDialogFragment(private val mainActivity: MainActivity) : DialogFragment() {
+class CreateNewStockDialogFragment(private val mainActivity: MainActivity) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
